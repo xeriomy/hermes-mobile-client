@@ -9,6 +9,9 @@ import com.hermes.mobile.data.parseFrame
 import com.hermes.mobile.data.pingFrame
 import com.hermes.mobile.data.promptFrame
 import com.hermes.mobile.data.textFrame
+import com.hermes.mobile.data.bool
+import com.hermes.mobile.data.obj
+import com.hermes.mobile.data.str
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import org.junit.Assert.assertEquals
@@ -77,7 +80,7 @@ class ProtocolTest {
 
     @Test
     fun `prompt card parses options and command`() {
-        val raw = """{"t":"prompt","id":"p1","kind":"exec_approval","text":"Run it?""","options":[{"id":"once","label":"Once"}],"command":"rm -rf /tmp/x","description":"Deletes x"}"""
+        val raw = """{"t":"prompt","id":"p1","kind":"exec_approval","text":"Run the command","options":[{"id":"once","label":"Once"}],"command":"rm -rf /tmp/x","description":"Deletes x"}"""
         val frame = parseFrame(raw)
         assertTrue(frame is Inbound.Prompt)
         frame as Inbound.Prompt
@@ -103,8 +106,4 @@ class ProtocolTest {
         assertEquals("ping", Json.parseToJsonElement(pingFrame(1L)).jsonObject.str("t"))
         assertEquals("prompt", Json.parseToJsonElement(promptFrame("p1", "once", null)).jsonObject.str("t"))
     }
-
-    private fun kotlinx.serialization.json.JsonObject.str(key: String): String? =
-        (this[key] as? kotlinx.serialization.json.JsonPrimitive)
-            ?.takeIf { it.isString }?.contentOrNull
 }
