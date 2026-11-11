@@ -17,7 +17,11 @@ if [ ! -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]; then
 fi
 
 echo ">> Accepting SDK licenses"
-yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null
+mkdir -p "$ANDROID_HOME/licenses"
+printf '8933bad161af4178b1185d1a37fbf41ea5269c55\nd56f5187479451eabf01fb78af6dfcb131a6481e\n' \
+  > "$ANDROID_HOME/licenses/android-sdk-license"
+printf 'd56f5187479451eabf01fb78af6dfcb131a6481e\n' \
+  > "$ANDROID_HOME/licenses/android-sdk-preview-license"
 
 echo ">> Installing platform 35 + build-tools 35.0.0"
 "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install \
