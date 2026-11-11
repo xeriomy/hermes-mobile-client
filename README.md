@@ -9,15 +9,22 @@ phone  ⇄  ws://<agent-host>:8787/ws  ⇄  Hermes gateway (or the Rust bridge) 
 
 ## Build
 
-Builds run in GitHub Actions (this machine has no Android SDK):
+Builds run in GitHub Actions. This machine is **aarch64**, and Google ships only
+x86_64 build-tools (`aapt2`), so a local APK build is not possible here.
 
 ```bash
 ./gradlew assembleDebug      # app/build/outputs/apk/debug/app-debug.apk
 ./gradlew testDebugUnitTest  # JVM unit tests
 ```
 
-The CI workflow (`.github/workflows/ci.yml`) runs the unit tests on every push
-and PR, builds the debug APK, and uploads both as artifacts.
+CI (`.github/workflows/ci.yml`) runs on every push and PR:
+
+| Job | What it does | Status |
+|---|---|---|
+| `Unit tests` | `./gradlew testDebugUnitTest`, uploads the test report | ✅ green |
+| `Build debug APK` | `./gradlew assembleDebug`, uploads `app-debug.apk` | ✅ green |
+
+Grab the APK from the run's **Artifacts** section (or `gh run download <id> -n app-debug`).
 
 ## Run
 
