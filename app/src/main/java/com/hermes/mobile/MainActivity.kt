@@ -1,4 +1,4 @@
-package com.hermes.mobile.ui
+package com.hermes.mobile
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -15,6 +15,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hermes.mobile.data.SettingsStore
+import com.hermes.mobile.ui.ChatScreen
+import com.hermes.mobile.ui.SettingsScreen
 import com.hermes.mobile.ui.theme.HermesTheme
 import com.hermes.mobile.vm.ChatViewModel
 
